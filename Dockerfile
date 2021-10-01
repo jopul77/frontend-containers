@@ -12,16 +12,16 @@ RUN npm install && npm run build
 
 FROM nginx:1.17
 ENV JSFOLDER=/opt/app/*.js
-COPY ./nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/nginx.conf
 RUN mkdir -p /opt/app && chown -R nginx:nginx /opt/app && chmod -R 755 /opt/app
 RUN chown -R nginx:nginx /var/cache/nginx && \
    chown -R nginx:nginx /var/log/nginx && \
    chown -R nginx:nginx /etc/nginx/conf.d
 RUN touch /var/run/nginx.pid && \
-   chown -R nginx:nginx /var/run/nginx.pid  
+   chown -R nginx:nginx /var/run/nginx.pid
 RUN chgrp -R root /var/cache/nginx /var/run /var/log/nginx /var/run/nginx.pid && \
    chmod -R 755 /var/cache/nginx /var/run /var/log/nginx /var/run/nginx.pid
-COPY ./start-nginx.sh /usr/bin/start-nginx.sh
+COPY start-nginx.sh /usr/bin/start-nginx.sh
 RUN chmod +x /usr/bin/start-nginx.sh
 
 USER nginx
